@@ -1,14 +1,13 @@
 import express from "express";
 import path from 'path';
+
 const app=express();
-// setting up view engine
-app.set("view engine", "ejs")
+app.use(express.static(path.join(path.resolve(),"public")));
+app.set("view engine","ejs");
 
-app.get("/getproducts",(req,res)=>{
-   
-     res.render("index",{name:"Aakash"});
-    });
-
+app.get("/",(req,res)=>{
+     res.sendFile("index.html")
+})
 app.listen(5000,()=>{
-    console.log("Server is working");
+    console.log("Server is working")
 })
