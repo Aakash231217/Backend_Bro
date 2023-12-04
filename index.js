@@ -2,18 +2,19 @@ import express from "express";
 import path from 'path';
 import mongoose from 'mongoose';
 
-mongoose.connect("mongodb://localhost:27017",{
-    dbname:"backend",
+mongoose.connect("mongodb://localhost:27017/Backend",{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
 .then(()=>console.log("Database Connected"))
 .catch((e)=>console.log(e));
 
 const messageSchema= new mongoose.Schema({
-name:String,
-email:String,
+     name:String,
+     email:String,
 })
 
-const Message= mongoose.model("Message",messageSchema);
+const Messge= mongoose.model("Message",messageSchema);
 
 
 const app=express();
@@ -27,7 +28,7 @@ app.get("/",(req,res)=>{
      res.render("index",{name:"Singh"});
 })
 app.get("/add",(req,res)=>{
-    Message.create({name:"Aakash",email:"rktaakash@gmail.com"}).then(()=>{
+    Messge.create({name:"Aakash", email:"rktaakash@gmail.com"}).then(()=>{
         res.send("Nice")
     });
 })
@@ -38,7 +39,7 @@ app.get("/success",(req,res)=>{
 app.post("/contact",(req,res)=>{
    console.log(req.body);
    users.push({username:req.body.name,email:req.body.email});
-   res.redirect("/successpage");
+   res.redirect("/success");
 })
 
 app.get("/users",(req,res)=>{
